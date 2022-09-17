@@ -15,7 +15,7 @@ Grâce aux cours de M.Duranton et de M.Maurice, les élèves de terminal du lyc�
 ## Objectifs
 *Les mots en gras représentent des noms de fonctions ou de variables*
 ### Village :
-[ ] Quand on est dans le villages, on doit avoir un menu qui nous demande ce qu'on veut faire, soit :    
+- [ ] Quand on est dans le villages, on doit avoir un menu qui nous demande ce qu'on veut faire, soit :    
 Parler à M.Mathieu (si l'option est choisis alors M.Mathieu vous redira les dernières choses qu'il vous as précédement dite)    
 Aller à l'hopîtal (si l'option est choisis)    
 
@@ -24,7 +24,7 @@ Aller à l'hopîtal (si l'option est choisis)
 [ ] Faire une fonction privée nommé "demande_de_Soin" qui vous demandera si vous êtes sur de vouloir vous soigner, si oui alors lancer la fonction **soin** avec comme paramètre la **vie_maximale**.    
 
 #### Banque :
-[x] Faire une fonction privée nommé **"déposer_argent"** qui prend comme paramètre **"argent"** (un integer), soit l'argent que le script prendra de l'argument **argent**"** pour le mettre dans l'argument **argentSauvegardé**. Si le nombre est trop grand alors le jeu doit informer le joueur.    
+- [X] Faire une fonction privée nommé **"déposer_argent"** qui prend comme paramètre **"argent"** (un integer), soit l'argent que le script prendra de l'argument **argent**"** pour le mettre dans l'argument **argentSauvegardé**. Si le nombre est trop grand alors le jeu doit informer le joueur.    
 [ ] Faire une fonction privée nommé **"retirer_argent"** qui prend comme paramètre **"argent"** (un integer), soit l'argent que le script prendra de l'argument **argentSauvegardé** pour le mettre dans l'argument **argent**. Si le nombre est trop grand alors le jeu doit informer le joueur.    
 [ ] Ajouter un son spéciales pour ces deux fonctions.    
 
