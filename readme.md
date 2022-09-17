@@ -14,19 +14,24 @@ Grâce aux cours de M.Duranton et de M.Maurice, les élèves de terminal du lyc�
 
 ## Objectifs
 *Les mots en gras représentent des noms de fonctions ou de variables*
+
 ### Village :
 - [ ] Quand on est dans le villages, on doit avoir un menu qui nous demande ce qu'on veut faire, soit :    
 Parler à M.Mathieu (si l'option est choisis alors M.Mathieu vous redira les dernières choses qu'il vous as précédement dite)    
-Aller à l'hopîtal (si l'option est choisis)    
+Aller à l'hopîtal (si l'option est choisis alors la fonction **hopital**)    
+Aller à la banque ()
 
-#### Hopital :
-[ ] Faire une fonction privée nommé **"soin"** qui prend qui prend comme paramètre **"vie"**, soit la vie qui sera ajoutée à vos **point_de_vie**. Si votre vie dépasse ensuite votre **vie_maximale** alors votre vie sera égale à votre **vie_maximale**.    
-[ ] Faire une fonction privée nommé "demande_de_Soin" qui vous demandera si vous êtes sur de vouloir vous soigner, si oui alors lancer la fonction **soin** avec comme paramètre la **vie_maximale**.    
+    #### Hopital :
+    - [ ] Faire une fonction privée nommé **"soin"** qui prend qui prend comme paramètre **"vie"**, soit la vie qui sera ajoutée à vos **point_de_vie**. Si votre vie dépasse ensuite votre **vie_maximale** alors votre vie sera égale à votre **vie_maximale**.    
+    - [ ] Faire une fonction privée nommé **"hopital"** qui vous demandera si vous êtes sur de vouloir vous soigner, si oui alors lancer la fonction **soin** avec comme paramètre la **vie_maximale**.    
 
 #### Banque :
-- [X] Faire une fonction privée nommé **"déposer_argent"** qui prend comme paramètre **"argent"** (un integer), soit l'argent que le script prendra de l'argument **argent**"** pour le mettre dans l'argument **argentSauvegardé**. Si le nombre est trop grand alors le jeu doit informer le joueur.    
-[ ] Faire une fonction privée nommé **"retirer_argent"** qui prend comme paramètre **"argent"** (un integer), soit l'argent que le script prendra de l'argument **argentSauvegardé** pour le mettre dans l'argument **argent**. Si le nombre est trop grand alors le jeu doit informer le joueur.    
-[ ] Ajouter un son spéciales pour ces deux fonctions.    
+- [ ] Faire une fonction privée nommé **"déposer_argent"** qui prend comme paramètre **"argent"** (un integer), soit l'argent que le script prendra de l'argument **argent**"** pour le mettre dans l'argument **argentSauvegardé**. Si le nombre est trop grand alors le jeu doit informer le joueur.    
+- [ ] Faire une fonction privée nommé **"retirer_argent"** qui prend comme paramètre **"argent"** (un integer), soit l'argent que le script prendra de l'argument **argentSauvegardé** pour le mettre dans l'argument **argent**. Si le nombre est trop grand alors le jeu doit informer le joueur.    
+- [ ] Ajouter un son spéciales pour ces deux fonctions.    
+- [ ] Faire une fonction privée nommé **"banque"** qui vous demandera si ce vous voulez faire à la banque, selon le choix le script lance les fonctions **déposer_argent** ou **retirer_argent** (ou retour au village si demandé).    
+
+#### Shop : 
 
 
 
