@@ -19,15 +19,15 @@ Grâce aux cours de M.Duranton et de M.Maurice, les élèves de terminal du lyc�
 
 ### Général et jeu :
 - [ ] Faire que le jeu soit joueable    
-- [ ] Utiliser **Colorama**. Comme les ordinnateurs du lycée ne sont pas perfommant, possèdent peu de librairy pré-installé et comme on ne peut pas en installer d'autres, alors j'ai choisis d'utiliser **Colorama**. C'est l'une des plus populaire et elle fonctionne parfaitement avec les ordinateurs du lycée.    
-- [ ] Lors du lancement du jeu si le fichier "sauvegarde.xml" existe lancer la fonction **afficher_les_joueurs** sinon lancer la fonction **creation_de_la_sauvegarde**.    
+- [X] Utiliser **Colorama**. Comme les ordinnateurs du lycée ne sont pas perfommant, possèdent peu de librairy pré-installé et comme on ne peut pas en installer d'autres, alors j'ai choisis d'utiliser **Colorama**. C'est l'une des plus populaire et elle fonctionne parfaitement avec les ordinateurs du lycée.    
+- [X] Lors du lancement du jeu si le fichier "sauvegarde.xml" existe lancer la fonction **afficher_les_joueurs** sinon lancer la fonction **creation_de_la_sauvegarde**.    
 - [ ] Dès qu'un joueur finit le jeu alors un Rick Roll avec les crédits se lance puis le jeu finit par s'arrêter.    
-- [ ] Faire une boucle (un while de préfèrence) pour le jeu ne s'arrête jamais.    
-- [ ] Faire une fonction privée nommé **"tutoriel"** qui sera très simplifier et qui n'utilisera pas les fonctions déjà créer pour ne pas altérer sur le jeu. Les bugs (ou zombies) seront 5 bugs en python.    
-- [ ] Faire une fonction privée nommé **"afficher"** qui prend comme paramètre **"textes"** (une liste ou un tuple où chaque élément est une phrase), **"temps"** (un integer qui sera généralement la **vitesse_du_texte** du joueur) et **"couleur"** (un string qui sera une couleur). Elle affichera sur la même ligne *(end="")* les caractères de chaque phrase de **textes** un par un avec une pause de durée **temps** entre chaqué caractère. Le script devra activer la couleur au début de la fonction, puis, devra la reset à la fin. Emettre un son à chaque écriture de cractère.    
+- [X] Faire une boucle (un while de préfèrence) pour le jeu ne s'arrête jamais.    
+- [ ] Faire une fonction publique nommé **"tutoriel"** qui sera très simplifier et qui n'utilisera pas les fonctions déjà créer pour ne pas altérer sur le jeu. Les bugs (ou zombies) seront 5 bugs en python.    
+- [X] Faire une fonction publique nommé **"afficher"** qui prend comme paramètre **"textes"** (une liste ou un tuple où chaque élément est une phrase), **"temps"** (un integer qui sera généralement la **vitesse_du_texte** du joueur) et **"couleur"** (un string qui sera une couleur). Elle affichera sur la même ligne *(end="")* les caractères de chaque phrase de **textes** un par un avec une pause de durée **temps** entre chaqué caractère. Le script devra activer la couleur au début de la fonction, puis, devra la reset à la fin. Emettre un son à chaque écriture de cractère.    
 
     #### Initialisation et XML :
-    - [ ] Faire une fonction privée nommé **"creation_de_sauvegarde"** qui créera un fichier nommé "sauvegarde.xml" (dans le dossier "attaque-des-langages") et qui contiendra les bases.    
+    - [X] Faire une fonction privée nommé **"creation_de_sauvegarde"** qui créera un fichier nommé "sauvegarde.xml" (dans le dossier "attaque-des-langages") et qui contiendra les bases.    
     - [ ] Faire une fonction privée nommé **"creation_de_joueur"** qui demandera un nom de joueur, qui créera **"joueur_actuel"** avec la classe **joueur** et qui sauvegardera ce joueur dans le fichier "sauvegarde.xml". Si le nom choisis existe déjà alors demander un autre nom jusqu'à ce l'utilisateur trouve un nom qui n'existe pas dans le fichier. Enfin quand on est bon, le jeu demande si il veut lancer le tutoriel. Si oui alors il lance la fonction **tutoriel**.    
     - [ ] Faire une fonction privée nommé **"afficher_les_joueurs"** qui lira les joueurs sauvegardé dans le fichier "sauvegarde.xml" et qui les affichera un par un (avec une numérotation).    
     - [ ] Faire qu'après avoir afficher les joueurs (grâce à la fonction **afficher_les_joueurs**), le script nous demande le numéro du joueur et lancera ensuite **chargement_du_joueur**.    
@@ -79,7 +79,7 @@ Arrêter de jouer (si l'option est choisis alors lance la fonction **sauvegarder
 - [ ] ~~Adapter certaines fonctions qui demande demande des chiffres pour exercer certaines actions en button avec **Curses** (voir [exemple](https://www.youtube.com/watch?v=Db4oc8qc9RU)).~~    
 - [ ] Faire différents mode jeu (choisisable lors de la création du joueur). Pour le moment, le jeu est en facile (quand on meurt, on ne perd rien) mais au futur on pourra être en : normal (quand on meurt, on perd notre argent), difficile (quand on meurt, on perd notre argent et le contenue de notre sac est remis à zéro *le joueur devra donc avoir en main l'arme __print__)* et hardcore (quand on meurt, le jeu se termine)    
 - [ ] Ajouter des objets de soin avec comme nom __"+"__, __"/"__, __"="__, etc    
-- [ ] Faire une fonction privée nommé **"paramètre"** qui nous permettra de modifier le **son**, la **vitesse_du_texte**, etc    
+- [ ] Faire une fonction publique nommé **"paramètre"** qui nous permettra de modifier le **son**, la **vitesse_du_texte**, etc    
 - [ ] Faire qu'on puisse mettre en pause une zone    
 
 ## Difficultées rencontrer
@@ -87,3 +87,10 @@ Arrêter de jouer (si l'option est choisis alors lance la fonction **sauvegarder
 - Création du scènario    
 
 *Afficher, init joueur, village ou langage*
+- [X] Son dans afficher
+- [ ] problème avec afficher dans le fichier principale
+~~- [ ] fond noir~~
+- [X] Adapter le texte du début sur pyzo
+- [ ] Faire les assert
+- [ ] Faire qu'on puisse changer le dossier de sauvegarde
+- [ ] Changer le texte de bienvenu car trop grand pour pizo...
