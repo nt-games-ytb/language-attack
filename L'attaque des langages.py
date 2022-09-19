@@ -1,5 +1,9 @@
 import os
+#import "attaque-des-langages/jeu"
 from colorama import Fore, Style
+
+print('\n'*100)  #Clear la console (si la ligne 5 ne marche pas)
+os.system('cls') #Clear la console
 
 print(f"{Fore.GREEN}==================================================================================================================================================================================================")
 print("Bienvenue sur :")
@@ -19,4 +23,4 @@ print("Créer par : TORO Nicolas TG09")
 print(f"=================================================================================================================================================================================================={Style.RESET_ALL}")
 
 #execfile('attaque-des-langages/jeu.py')
-os.system('python attaque-des-langages/jeu.py')
+os.system('python attaque-des-langages/jeu.py') #Lance le jeu
