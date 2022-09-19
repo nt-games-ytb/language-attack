@@ -1,5 +1,5 @@
 class Joueur:
-    def __init__(self, nom, vie, vie_maximal, argent, expérience, niveau, objet_en_main, sac,  langage_débloqué, vitesse_du_texte):
+    def __init__(self, nom, vie, vie_maximal, argent, expérience, niveau, objet_en_main, sac,  langage_débloqué, vitesse_du_texte, fichier_de_sauvegarde):
         self.nom = nom
         self.vie = vie
         self.vie_maximal = vie_maximal
@@ -10,3 +10,4 @@ class Joueur:
         self.sac = sac
         self.langage_débloqué = langage_débloqué
         self.vitesse_du_texte = vitesse_du_texte
+        self.fichier_de_sauvegarde = fichier_de_sauvegarde
