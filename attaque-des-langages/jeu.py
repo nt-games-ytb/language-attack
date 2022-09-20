@@ -14,7 +14,8 @@ except:
     from playsound import playsound
 #endregion
 
-village_utilisé = village.Village()
+village_utilisé = village.Village(True, True, True, True)
+joueur_actuel = joueur.Joueur("", 100, 100, 0, 0, 0, 1, 0, ["print"], 0, 0.05, os.path.dirname(os.path.realpath(__file__)),"\sauvegarde.xml")
 
 class Initialisation:
     def __init__(self, dossier):
@@ -30,7 +31,7 @@ class Initialisation:
         afficher([
         "Bonjour et bienvenue dans le jeu !",
         "Je vois que tu es nouveau, je me suis permit de fouiller dans ton PC et je n'ai pas trouvé de sauvegarde du jeu.",
-        "Enfin bref, moi c'est M.Mathieu ancien prof d'NSI au lycée Thierry Maulnier et actuelle prof d'NSI dans le Nord et fier d'y être parce que j'en pouvais plus de ces fous de 1G03."], 0, "normal")#blanc
+        "Enfin bref, moi c'est M.Mathieu ancien prof d'NSI au lycée Thierry Maulnier et actuelle prof d'NSI dans le Nord et fier d'y être parce que j'en pouvais plus de ces fous de 1G03."], 0.05, "normal")
         print()
         fichier = open(self.dossier + "\sauvegarde.xml", "a")
         fichier.write("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<sauvegarde>\n\n</sauvegarde>")
@@ -38,9 +39,8 @@ class Initialisation:
 
     def creation_de_joueur(self):
         village_utilisé.Texte_de_Mathieu()
-        afficher(["Parle, moi un peu d'toi que jte créer un perso pour que tu joue :"], 0, "normal")
-        nom_du_joueur = input("Comment tu t'appelle ? ")
-        joueur_actuel = joueur.Joueur(nom_du_joueur, 100, 100, 0, 0, 1, 0, ["print"], 0, 0.1, "\sauvegarde.xml")
+        afficher(["Parle, moi un peu d'toi que jte créer un perso pour que tu joue :"], 0.05, "normal")
+        joueur_actuel.nom = input("Comment tu t'appelle ? ")
         self.sauvegarder(self.dossier + joueur_actuel.fichier_de_sauvegarde, joueur_actuel)
 
     def afficher_les_joueurs(self, fichier):
@@ -63,6 +63,7 @@ class Initialisation:
     def sauvegarder(self, fichier, joueur):
         pass
 
+#region Affichage
 def afficher(textes, temps, couleur): #Manque le son
     assert type(textes) == list
     for phrase in range(len(textes)):
@@ -94,42 +95,68 @@ def afficher(textes, temps, couleur): #Manque le son
             time.sleep(temps)
         if phrase != len(textes) - 1:
             print()
-
     print(f"{Style.RESET_ALL}") #Remettre le texte normal
 
+def saut_de_lignes():
+    print()
+#endregion
+
 #region Tutoriel
+def scenario():
+    print("Voici le scènario...")
+
 def demande_tutoriel():
     print("Veux-tu lancer le tutoriel ?\n1 - Oui | 2 - Non")
     réponse_tutoriel = input()
     if réponse_tutoriel == "1":
         print("D'accord, on lance le tutoriel !")
+        saut_de_lignes()
         tutoriel()
     elif réponse_tutoriel == "2":
         print("D'accord, on passe le tutoriel !")
-        pass
+        saut_de_lignes()
     else:
         print("Je vais prendre cette réponse pour un non, donc on passe le tutoriel !")
-        pass
+        saut_de_lignes()
+    
 
 def tutoriel():
-    pass
+    print("Voici le tutoriel...")
 #endregion
 
 #region Séléction du joueur
-jeu = Initialisation(os.path.dirname(os.path.realpath(__file__))) #Créer jeu, un objet de la class initailisation qui prend comme attribut le dossier "attaque-des-langages"
+jeu = Initialisation(joueur_actuel.dossier_du_jeu) #Créer jeu, un objet de la class initailisation qui prend comme attribut le dossier "attaque-des-langages"
 if jeu.fichier_existe("sauvegarde.xml") == False: #Si il n'y a pas de sauvegarde
-    jeu.creation_de_la_sauvegarde()
+    #jeu.creation_de_la_sauvegarde()
+    saut_de_lignes()
     jeu.creation_de_joueur()
+    saut_de_lignes()
+    scenario()
+    saut_de_lignes()
     demande_tutoriel()
+    saut_de_lignes()
 else:
     jeu.afficher_les_joueurs("\sauvegarde.xml")
     numéro_du_joueur = input("Quelle option choisis-tu ? ")
     jeu.chargement_du_joueur("\sauvegarde.xml", numéro_du_joueur)
+    village_utilisé.première_fois_village = False
+    village_utilisé.première_fois_hopital = False
+    village_utilisé.première_fois_banque = False
+    village_utilisé.première_fois_shop = False
 #endregion
 
 #region Jeu
 jeu = True
 while jeu == True:
-    #lance le village etc
+    if village_utilisé.première_fois_village == True:
+        village_utilisé.Texte_de_Mathieu()
+        afficher(["Je te présente le village, c'est là où tu habite.",
+        "On y trouve un hopital pour se soigner, une banque pour stocker ton argent et un shop pour acheter des armes.",
+        "Tu peux aussi partir dans une zone pour aller battre les différents langages."], joueur_actuel.vitesse_du_texte, "normal")
+        village_utilisé.première_fois_village = False
+        saut_de_lignes()
+        
+    village_utilisé.village(joueur_actuel)
+        
     pass
 #endregion
