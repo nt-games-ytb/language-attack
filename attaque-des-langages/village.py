@@ -35,7 +35,7 @@ class Village:
         if self.première_fois_hopital == True:
             print(f"{Fore.MAGENTA}Infirmière Joelle:{Fore.RESET} Bienvue à l'hopital, je suis l'infirmière Joelle est je suis la pour vous soigner !")
         else:
-            print("f{Fore.MAGENTA}Infirmière Joelle:{Fore.RESET} Bonjour !")
+            print(f"{Fore.MAGENTA}Infirmière Joelle:{Fore.RESET} Bonjour !")
         print("Voulez-vous être soigné ?\n1 - Oui | 2 - Non")
         réponse_hopital = input()
         if réponse_hopital == "1":
