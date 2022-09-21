@@ -1,6 +1,7 @@
 #region Import modules
 import time
 import os
+import ast
 import xml.dom.minidom
 from colorama import Fore, Style
 import joueur
@@ -26,6 +27,9 @@ class Initialisation:
             return True
         else:
             return False
+
+    def convertir_en_liste(self, textes):
+        return ast.literal_eval(textes)
 
     def creation_de_la_sauvegarde(self):
         afficher([
@@ -63,14 +67,14 @@ class Initialisation:
             liste_des_joueurs = fichier_xml_de_sauvegarde.documentElement.getElementsByTagName("joueur")
             joueur_actuel.nom = liste_des_joueurs[numéro_du_joueur - 1].childNodes[0].nodeValue
             joueur_actuel.vie = int(liste_des_joueurs[numéro_du_joueur - 1].getAttribute("vie"))
-            joueur_actuel.vie_maximal = liste_des_joueurs[numéro_du_joueur - 1].getAttribute("vie_maximal")
-            joueur_actuel.argent = liste_des_joueurs[numéro_du_joueur - 1].getAttribute("argent")
-            joueur_actuel.argent_banque = liste_des_joueurs[numéro_du_joueur - 1].getAttribute("argent_banque")
-            joueur_actuel.expérience = liste_des_joueurs[numéro_du_joueur - 1].getAttribute("experience")
-            joueur_actuel.niveau = liste_des_joueurs[numéro_du_joueur - 1].getAttribute("niveau")
-            joueur_actuel.objet_en_main = liste_des_joueurs[numéro_du_joueur - 1].getAttribute("objet_en_main")
-            joueur_actuel.sac = list(liste_des_joueurs[numéro_du_joueur - 1].getAttribute("sac"))
-            joueur_actuel.langage_débloqué = liste_des_joueurs[numéro_du_joueur - 1].getAttribute("langage_debloque")
+            joueur_actuel.vie_maximal = int(liste_des_joueurs[numéro_du_joueur - 1].getAttribute("vie_maximal"))
+            joueur_actuel.argent = int(liste_des_joueurs[numéro_du_joueur - 1].getAttribute("argent"))
+            joueur_actuel.argent_banque = int(liste_des_joueurs[numéro_du_joueur - 1].getAttribute("argent_banque"))
+            joueur_actuel.expérience = int(liste_des_joueurs[numéro_du_joueur - 1].getAttribute("experience"))
+            joueur_actuel.niveau = int(liste_des_joueurs[numéro_du_joueur - 1].getAttribute("niveau"))
+            joueur_actuel.objet_en_main = int(liste_des_joueurs[numéro_du_joueur - 1].getAttribute("objet_en_main"))
+            joueur_actuel.sac = self.convertir_en_liste(liste_des_joueurs[numéro_du_joueur - 1].getAttribute("sac"))
+            joueur_actuel.langage_débloqué = int(liste_des_joueurs[numéro_du_joueur - 1].getAttribute("langage_debloque"))
             joueur_actuel.vitesse_du_texte = float(liste_des_joueurs[numéro_du_joueur - 1].getAttribute("vitesse_du_texte"))
             joueur_actuel.dossier_du_jeu = liste_des_joueurs[numéro_du_joueur - 1].getAttribute("dossier_du_jeu")
             joueur_actuel.fichier_de_sauvegarde = liste_des_joueurs[numéro_du_joueur - 1].getAttribute("fichier_de_sauvegarde")
@@ -81,16 +85,16 @@ class Initialisation:
         for nom in liste_des_joueurs:
             if nom.childNodes[0].nodeValue == joueur_actuel.nom:
                 #Faut que sa les changes
-                nom.setAttribute("vie", joueur_actuel.vie)
-                nom.setAttribute("vie_maximal", joueur_actuel.vie_maximal)
-                nom.setAttribute("argent", joueur_actuel.argent)
-                nom.setAttribute("argent_banque", joueur_actuel.argent_banque)
-                nom.setAttribute("experience", joueur_actuel.expérience)
-                nom.setAttribute("niveau", joueur_actuel.niveau)
-                nom.setAttribute("objet_en_main", joueur_actuel.objet_en_main)
-                nom.setAttribute("sac", joueur_actuel.sac)
-                nom.setAttribute("langage_debloque", joueur_actuel.langage_débloqué)
-                nom.setAttribute("vitesse_du_texte", joueur_actuel.vitesse_du_texte)
+                nom.setAttribute("vie", str(joueur_actuel.vie))
+                nom.setAttribute("vie_maximal", str(joueur_actuel.vie_maximal))
+                nom.setAttribute("argent", str(joueur_actuel.argent))
+                nom.setAttribute("argent_banque", str(joueur_actuel.argent_banque))
+                nom.setAttribute("experience", str(joueur_actuel.expérience))
+                nom.setAttribute("niveau", str(joueur_actuel.niveau))
+                nom.setAttribute("objet_en_main", str(joueur_actuel.objet_en_main))
+                nom.setAttribute("sac", str(joueur_actuel.sac))
+                nom.setAttribute("langage_debloque", str(joueur_actuel.langage_débloqué))
+                nom.setAttribute("vitesse_du_texte", str(joueur_actuel.vitesse_du_texte))
                 nom.setAttribute("dossier_du_jeu", joueur_actuel.dossier_du_jeu)
                 nom.setAttribute("fichier_de_sauvegarde", joueur_actuel.fichier_de_sauvegarde)
                 fichier_xml_de_sauvegarde.writexml(open(joueur_actuel.dossier_du_jeu  + joueur_actuel.fichier_de_sauvegarde, "w"))
@@ -111,6 +115,7 @@ class Initialisation:
         nouveau_joueur.setAttribute("fichier_de_sauvegarde", joueur_actuel.fichier_de_sauvegarde)
         fichier_xml_de_sauvegarde.documentElement.appendChild(nouveau_joueur)
         fichier_xml_de_sauvegarde.writexml(open(joueur_actuel.dossier_du_jeu  + joueur_actuel.fichier_de_sauvegarde, "w"))
+
 
 #region Affichage
 def afficher(textes, temps, couleur): #Manque le son
