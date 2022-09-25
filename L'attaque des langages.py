@@ -1,5 +1,4 @@
 import os
-#import "attaque-des-langages/jeu"
 from colorama import Fore, Style
 
 print('\n'*100)  #Clear la console (si la ligne 5 ne marche pas)
@@ -21,6 +20,9 @@ print("                                                      | $$               
 print("                                                      |__/                                                                                       \______/            \______/                     ")
 print("Créer par : TORO Nicolas TG09")
 print(f"=================================================================================================================================================================================================={Style.RESET_ALL}")
+print("(Si le texte est mal affiché, alors veuillez agrandir la fenêtre ou la dézoomer)\n")
 
+#Lance le jeu :
 #execfile('attaque-des-langages/jeu.py')
-os.system('python attaque-des-langages/jeu.py') #Lance le jeu
+os.system('python attaque-des-langages/jeu.py') 
+#import jeu.jeu
