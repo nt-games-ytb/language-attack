@@ -1,69 +1,215 @@
-    def afficher_les_joueurs(self, fichier):
-        print("Un fichier de sauvegarde a été trouvé !")
-        print("Plusieurs options s'offre donc à toi, elle sont les suivantes :")
-        print("0 - Créer un nouveau joueur")
-        fichier_xml_de_sauvegarde = xml.dom.minidom.parse(self.dossier + fichier)
-        liste_des_joueurs = fichier_xml_de_sauvegarde.documentElement.getElementsByTagName("joueur")
-        numéro_joueur = 1
-        for nom in liste_des_joueurs:
-            print(str(numéro_joueur) + " - Jouer avec " + nom.getAttribute("nom"))
-            numéro_joueur = numéro_joueur + 1
-        if numéro_joueur == 1:
-            print(f"{Fore.RED}Malheuresement, nous n'avons pas réussi à charger de joueurs.{Fore.RESET}")
+from colorama import Fore, Style
+import random
+import initialisation
 
-    def chargement_du_joueur(self, fichier, numéro_du_joueur):
-        if numéro_du_joueur == 0:
-            self.creation_de_joueur()
+liste_des_langages = [
+"Q#",
+"Swift",
+"Julia",
+"Kotlin",
+"Rust",
+"Go",
+"F#",
+"C#",
+"Objective Caml",
+"JavaScript",
+"PHP",
+"Java",
+"Delphi",
+"Lua",
+"Ruby",
+"Brainfuck",
+"SQL-2",
+"Visual Basic",
+"Python",
+"Perl",
+"Caml",
+"MATLAB",
+"Objective-C",
+"C++",
+"SQL",
+"C",
+"Pascal",
+"BASIC",
+"COBOL",
+"FORTRAN"]
+
+description_de_langage = [
+"Test"
+]
+
+class Langages:
+    def __init__(self, première_fois_langage):
+        self.première_fois_langage = première_fois_langage
+
+    def parler_a_mathieu(self, joueur):
+        initialisation.Texte_de_Mathieu()
+        initialisation.afficher([
+        "Tu as débloqué " + str(joueur.langage_débloqué) + " langages sur 30, c'est pas mal, bravo !",
+        "Le dernier langage que tu as débloqué est le " + liste_des_langages[joueur.langage_débloqué - 1] + ".",
+        description_de_langage[joueur.langage_débloqué - 1],
+        "Bref, je me perds dans ce que je dis.",
+        "En tout cas, continue comme ça, tu as bientôt finis de le réparer, je crois en toi.",
+        "Reviens me voir quand tu veux !"],
+        joueur.vitesse_du_texte, "normal")
+        initialisation.saut_de_lignes()
+
+    def choix_de_langage(self, joueur):
+        if self.première_fois_langage == True:
+            initialisation.Texte_de_Mathieu()
+            initialisation.afficher([
+            "Te voila maintenant à l'intersection.",
+            "C'est ici que tu vas choisir un langage à réparer en exertminant les bugs de ce langages.",
+            "Tu peux réparer autant de fois que tu veux un langage mais il suffit de réparer seulement une fois un langage pour débloquer le suivant et ainsi de suite."],
+            joueur.vitesse_du_texte, "normal")
+            self.première_fois_langage = False
         else:
-            fichier_xml_de_sauvegarde = xml.dom.minidom.parse(self.dossier + fichier)
-            liste_des_joueurs = fichier_xml_de_sauvegarde.documentElement.getElementsByTagName("joueur")
-            joueur_actuel.nom = liste_des_joueurs[numéro_du_joueur - 1].getAttribute("nom")
-            joueur_actuel.vie = liste_des_joueurs[numéro_du_joueur - 1].getElementsByTagName("vie")[0].childNodes[0].nodeValue
-            '''joueur_actuel.vie_maximal = liste_des_joueurs[numéro_du_joueur - 1].getAttribute("vie_maximal")
-            joueur_actuel.argent = liste_des_joueurs[numéro_du_joueur - 1].getAttribute("argent")
-            joueur_actuel.argent_banque = liste_des_joueurs[numéro_du_joueur - 1].getAttribute("argent_banque")
-            joueur_actuel.expérience = liste_des_joueurs[numéro_du_joueur - 1].getAttribute("experience")
-            joueur_actuel.niveau = liste_des_joueurs[numéro_du_joueur - 1].getAttribute("niveau")
-            joueur_actuel.objet_en_main = liste_des_joueurs[numéro_du_joueur - 1].getAttribute("objet_en_main")
-            joueur_actuel.sac = liste_des_joueurs[numéro_du_joueur - 1].getAttribute("sac")
-            joueur_actuel.langage_débloqué = liste_des_joueurs[numéro_du_joueur - 1].getAttribute("langage_debloque")
-            joueur_actuel.vitesse_du_texte = liste_des_joueurs[numéro_du_joueur - 1].getAttribute("vitesse_du_texte")
-            joueur_actuel.dossier_du_jeu = liste_des_joueurs[numéro_du_joueur - 1].getAttribute("dossier_du_jeu")
-            joueur_actuel.fichier_de_sauvegarde = liste_des_joueurs[numéro_du_joueur - 1].getAttribute("fichier_de_sauvegarde")'''
+            initialisation.Texte_de_Mathieu()
+            initialisation.afficher(["Bonjour !"], joueur.vitesse_du_texte, "normal")
+        initialisation.afficher(["Que veux-tu faire ?"], joueur.vitesse_du_texte, "normal")
+        print("0 - Retourner au village")
+        self.__afficher_les_langages(joueur, liste_des_langages)
+        réponse_langage = int(input())
+        if réponse_langage == 0:
+            initialisation.afficher(["D'accord, alors j'espère te revoir bientôt !"], joueur.vitesse_du_texte, "normal")
+        else:
+            self.__entrer_dans_une_zone(joueur, réponse_langage)
+        initialisation.saut_de_lignes()
 
-    def sauvegarder(self):
-        fichier_xml_de_sauvegarde = xml.dom.minidom.parse(joueur_actuel.dossier_du_jeu + joueur_actuel.fichier_de_sauvegarde)
-        liste_des_joueurs = fichier_xml_de_sauvegarde.documentElement.getElementsByTagName("joueur")
-        for nom in liste_des_joueurs:
-            if nom.childNodes[0].nodeValue == joueur_actuel.nom:
-                #Faut que sa les changes
-                nom.setAttribute("vie", joueur_actuel.vie)
-                nom.setAttribute("vie_maximal", joueur_actuel.vie_maximal)
-                nom.setAttribute("argent", joueur_actuel.argent)
-                nom.setAttribute("argent_banque", joueur_actuel.argent_banque)
-                nom.setAttribute("experience", joueur_actuel.expérience)
-                nom.setAttribute("niveau", joueur_actuel.niveau)
-                nom.setAttribute("objet_en_main", joueur_actuel.objet_en_main)
-                nom.setAttribute("sac", joueur_actuel.sac)
-                nom.setAttribute("langage_debloque", joueur_actuel.langage_débloqué)
-                nom.setAttribute("vitesse_du_texte", joueur_actuel.vitesse_du_texte)
-                nom.setAttribute("dossier_du_jeu", joueur_actuel.dossier_du_jeu)
-                nom.setAttribute("fichier_de_sauvegarde", joueur_actuel.fichier_de_sauvegarde)
-                fichier_xml_de_sauvegarde.writexml(open(joueur_actuel.dossier_du_jeu  + joueur_actuel.fichier_de_sauvegarde, "w"))
-                return None 
-        nouveau_joueur = fichier_xml_de_sauvegarde.createElement("joueur")
-        nouveau_joueur.appendChild(fichier_xml_de_sauvegarde.createTextNode(joueur_actuel.nom))
-        nouveau_joueur.setAttribute("vie", str(joueur_actuel.vie))
-        nouveau_joueur.setAttribute("vie_maximal", str(joueur_actuel.vie_maximal))
-        nouveau_joueur.setAttribute("argent", str(joueur_actuel.argent))
-        nouveau_joueur.setAttribute("argent_banque", str(joueur_actuel.argent_banque))
-        nouveau_joueur.setAttribute("experience", str(joueur_actuel.expérience))
-        nouveau_joueur.setAttribute("niveau", str(joueur_actuel.niveau))
-        nouveau_joueur.setAttribute("objet_en_main", str(joueur_actuel.objet_en_main))
-        nouveau_joueur.setAttribute("sac", str(joueur_actuel.sac))
-        nouveau_joueur.setAttribute("langage_debloque", str(joueur_actuel.langage_débloqué))
-        nouveau_joueur.setAttribute("vitesse_du_texte", str(joueur_actuel.vitesse_du_texte))
-        nouveau_joueur.setAttribute("dossier_du_jeu", joueur_actuel.dossier_du_jeu)
-        nouveau_joueur.setAttribute("fichier_de_sauvegarde", joueur_actuel.fichier_de_sauvegarde)
-        fichier_xml_de_sauvegarde.documentElement.appendChild(nouveau_joueur)
-        fichier_xml_de_sauvegarde.writexml(open(joueur_actuel.dossier_du_jeu  + joueur_actuel.fichier_de_sauvegarde, "w"))
+    def __afficher_les_langages(self, joueur, liste_langages):
+        for numéro_de_langages in range(joueur.langage_débloqué):
+            print(str(numéro_de_langages + 1) + " - Réparer le " + liste_langages[numéro_de_langages])
+
+    def __entrer_dans_une_zone(self, joueur, numéro_du_langage):
+        if numéro_du_langage > 30:
+            print(f"{Fore.RED}Le langage que vous avez demandé n'existe pas !{Style.RESET_ALL}")
+            initialisation.saut_de_lignes()
+            self.choix_de_langage(joueur)
+        else:
+            if numéro_du_langage > joueur.langage_débloqué:
+                print(f"{Fore.RED}Vous n'avez pas encore débloqué ce langage !{Style.RESET_ALL}")
+                initialisation.saut_de_lignes()
+                self.choix_de_langage(joueur)
+            else:
+                zone_choisis = Zone(liste_des_langages[numéro_du_langage - 1], numéro_du_langage - 1, random.randint(5 * numéro_du_langage, 12 * numéro_du_langage), 15 * numéro_du_langage, 3 * numéro_du_langage, 6 * numéro_du_langage, 0)
+                initialisation.afficher([
+                "Très bien, tu vas donc t'occuper du " + liste_des_langages[numéro_du_langage - 1] + ".",
+                "Pour le réparer, il faudra que tu fixe " + str(zone_choisis.nombre_de_bugs) + " bugs.",
+                "Bonne chance !"], joueur.vitesse_du_texte, "normal")
+                initialisation.saut_de_lignes()
+                zone_choisis.demande_de_combat(joueur)
+
+class Zone:
+    def __init__(self, nom_de_zone, numéro_de_zone, nombre_de_bugs, vie_des_bugs, dégats_minimal_des_bugs, dégats_maximal_des_bugs, bugs_battu):
+        self.nom_de_zone = nom_de_zone
+        self.numéro_de_zone = numéro_de_zone
+        self.nombre_de_bugs = nombre_de_bugs
+        self.vie_des_bugs = vie_des_bugs
+        self.dégats_minimal_des_bugs = dégats_minimal_des_bugs
+        self.dégats_maximal_des_bugs = dégats_maximal_des_bugs
+        self.bugs_battu = bugs_battu
+
+    def demande_de_combat(self, joueur):
+        print("Zone " + self.nom_de_zone + " (Bugs battu: " + str(self.bugs_battu) + "/" + str(self.nombre_de_bugs) + ")")
+        if self.bugs_battu == self.nombre_de_bugs:
+            initialisation.Texte_de_Mathieu()
+            initialisation.afficher([
+            "Bravo, tu as réglé assez de bugs pour réparer le " + self.nom_de_zone + " !",
+            "Je savais que tu pouvais le faire.",
+            "Voici quelques informations à propos de ce langage :",
+            description_de_langage[self.numéro_de_zone],
+            "Bref, je me perds dans ce que je dis.",
+            "Si tu veux tu peux continuer à battre des bugs ou retourner au village.",
+            "Que décide tu ?"], joueur.vitesse_du_texte, "normal")
+            print("1 - Battre un bugs | 2 - Retourner au village")
+            réponse_bugs_langage_réparé = input()
+            if réponse_bugs_langage_réparé == "1":
+                initialisation.saut_de_lignes()
+                self.__combat(joueur)
+            elif réponse_bugs_langage_réparé == "2":
+                initialisation.afficher(["D'accord, alors j'espère te revoir bientôt !"], joueur.vitesse_du_texte, "normal")
+            else:
+                initialisation.afficher(["Désolé mais je n'ai pas compris ta demande...", "Je te laisse retourner au village, j'espère te revoir bientôt !"], joueur.vitesse_du_texte, "normal")
+        else:
+            initialisation.Texte_de_Mathieu()
+            initialisation.afficher(["Veux-tu combattre un bugs ? "], joueur.vitesse_du_texte, "normal")
+            print("1 - Oui (combattre un bugs) | 2 - Non (retourner au village)")
+            réponse_bugs = input()
+            if réponse_bugs == "1":
+                initialisation.saut_de_lignes()
+                self.__combat(joueur)
+            elif réponse_bugs == "2":
+                print(f"{Fore.RED}ATTENTION: Votre avencement sur ce langage sera perdu mais l'argent et l'expérience acquises resteront !{Style.RESET_ALL}")
+                print("Etes-vous sur de votre choix ?\n1 - Oui | 2 - Non")
+                réponse_bugs_abandon = input()
+                if réponse_bugs_abandon == "1":
+                    initialisation.afficher(["D'accord, alors j'espère te revoir bientôt !"], joueur.vitesse_du_texte, "normal")
+                else:
+                    initialisation.saut_de_lignes()
+                    self.demande_de_combat(joueur)
+            else:
+                initialisation.afficher(["Désolé mais je n'ai pas compris votre demande..."], joueur.vitesse_du_texte, "normal")
+                initialisation.saut_de_lignes()
+                self.demande_de_combat(joueur)
+        
+
+    def __combat(self, joueur):
+        print("Lancement du combat contre un bugs !\n")
+        bugs = self.vie_des_bugs
+        tour = 1
+        while not (joueur.vie == 0 or bugs == 0):
+            qui_commence = random.randint(1,2)
+            if qui_commence == 1:
+                print("Tour " + str(tour) + " - Vous commencez à attaquer :")
+                attaque = random.randint(1,5) * joueur.sac[joueur.objet_en_main][1]
+                bugs = bugs - attaque
+                if bugs < 0:
+                    bugs = 0
+                print("Vous enlevez " + str(attaque) + " PV à votre adversaire, il a désormais " + str(bugs) + " PV.")
+                if bugs != 0:
+                    print("Tour " + str(tour) + " - Le bugs vous attaque :")
+                    attaque_bugs = random.randint(self.dégats_minimal_des_bugs,self.dégats_maximal_des_bugs)
+                    joueur.vie = joueur.vie - attaque_bugs
+                    if joueur.vie < 0:
+                        joueur.vie = 0
+                    print("Il vous enlève " + str(attaque_bugs) + " PV, vous avez désormais " + str(joueur.vie) + " PV.")
+            else:
+                print("Tour " + str(tour) + " - Le bugs commence à attaquer :")
+                attaque_bugs = random.randint(self.dégats_minimal_des_bugs,self.dégats_maximal_des_bugs)
+                joueur.vie = joueur.vie - attaque_bugs
+                if joueur.vie < 0:
+                    joueur.vie = 0
+                print("Il vous enlève " + str(attaque_bugs) + " PV, vous avez désormais " + str(joueur.vie) + " PV.")
+                if joueur.vie != 0:
+                    print("Tour " + str(tour) + " - Vous attaquez le bugs :")
+                    attaque = random.randint(1,5) * joueur.sac[joueur.objet_en_main][1]
+                    bugs = bugs - attaque
+                    if bugs < 0:
+                        bugs = 0
+                    print("Vous enlevez " + str(attaque) + " PV à votre adversaire, il a désormais " + str(bugs) + " PV.")
+            tour = tour + 1
+            initialisation.saut_de_lignes()
+        if bugs == 0:
+            print("Vous avez battu un bugs !")
+
+            self.bugs_battu = self.bugs_battu + 1
+            argent_gagné = random.randint(1 * (self.numéro_de_zone + 1), 5 * (self.numéro_de_zone + 1))
+            joueur.argent = joueur.argent + argent_gagné
+            print("Vous avez gagné " + str(argent_gagné) + " bitcoins, vous êtes maintenant à " + str(joueur.argent) + " bitcoins.")
+
+            expériences_gagné = random.randint(5 * (self.numéro_de_zone + 1), 20 * (self.numéro_de_zone + 4))
+            joueur.expérience = joueur.expérience + expériences_gagné
+            print("Vous avez gagné " + str(expériences_gagné) + " xp.")
+            joueur.regarde_experience()
+
+            jeu = initialisation.Initialisation(joueur.dossier_du_jeu)
+            jeu.sauvegarder(joueur)
+
+            initialisation.saut_de_lignes()
+            self.demande_de_combat(joueur)
+        else:
+            print("Vous êtes mort !")
+            joueur.argent = 0
+            joueur.vie = joueur.vie_maximal
+            print("Vous avez perdu l'argent que vous avez sur vous allez être soigné.")
+

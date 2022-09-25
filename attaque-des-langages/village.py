@@ -1,43 +1,80 @@
+import os
 from colorama import Fore, Style
 from playsound import playsound
 import initialisation
 
+#Mathieu = rouge
+#Texte = normal
+#Banquier = jaune
+#Infirmière joelle = mangeta
+#Vendeur = noir
+
+
+items_du_shop = [
+["def", 2000, 2],
+["return", 2000, 2],
+["pass", 2000, 2],
+["class", 3000, 3],
+["import", 4000, 4],
+["from", 5000, 5],
+["if", 6000, 6],
+["elif", 7000, 7],
+["else", 8000, 8],
+["for", 9000, 9],
+["while", 10000, 10],
+["try", 11000, 11],
+["exept", 12000, 12],
+["finally", 2000, 2],
+["catch", 2000, 2]]
+
 class Village:
-    def __init__(self, première_fois_village, première_fois_hopital, première_fois_banque, première_fois_shop):
+    def __init__(self, première_fois_village, première_fois_hopital, première_fois_banque, première_fois_shop, son):
         self.première_fois_village = première_fois_village
         self.première_fois_hopital = première_fois_hopital
         self.première_fois_banque = première_fois_banque
         self.première_fois_shop = première_fois_shop
+        self.son = son
+
+    def vérifié_le_dossier_son(self, dossier):
+        if os.path.exists(dossier + "\\son") == True:
+            self.son = True
+        else:
+            self.son = False
         
-    def Texte_de_Mathieu(self):
-        print(f"{Fore.RED}M.Mathieu: {Style.RESET_ALL}", end="")
-        
-    def village(self, joueur):
+    def village(self, joueur, langage):
         if self.première_fois_village == True:
-            self.Texte_de_Mathieu()
+            initialisation.Texte_de_Mathieu()
             initialisation.afficher(["Je te présente le village, c'est ici que tu habites.",
             "On y trouve un hopîtal pour se soigner, une banque pour stocker ton argent et un shop pour acheter des armes.",
             "Tu peux aussi partir dans une zone pour aller battre les différents langages."], joueur.vitesse_du_texte, "normal")
             self.première_fois_village = False
         print("Que veux-tu faire ?")
-        print("1 - Aller à l'hopîtal")
-        print("2 - Aller à la banque")
-        print("3 - Aller au shop")
-        print("4 - Aller combattre des bugs")
-        print("5 - Afficher les caractèristiques")
-        #print("6 - Paramètres")
+        print("1 - Parler à M.Mathieu")
+        print("2 - Aller à l'hopîtal")
+        print("3 - Aller à la banque")
+        print("4 - Aller au shop")
+        print("5 - Aller combattre des bugs")
+        print("6 - Afficher les caractèristiques")
+        print("7 - Changer d'objet en main")
+        print("8 - Paramètres")
         réponse_village = input()
         initialisation.saut_de_lignes()
         if réponse_village == "1":
-            self.__hopital(joueur)
+            langage.parler_a_mathieu(joueur)
         elif réponse_village == "2":
-            self.__banque(joueur)
+            self.__hopital(joueur)
         elif réponse_village == "3":
-            self.__shop(joueur)
+            self.__banque(joueur)
         elif réponse_village == "4":
-            pass#combat langage
+            self.__shop(joueur)
         elif réponse_village == "5":
+            langage.choix_de_langage(joueur)
+        elif réponse_village == "6":
             joueur.afficher_les_caracteristiques()
+        elif réponse_village == "7":
+            joueur.changer_objet_en_main()
+        elif réponse_village == "8":
+            joueur.parametre()
         else:
             print("Choix inconnu !")
         
@@ -71,16 +108,20 @@ class Village:
         if réponse_hopital == "1":
             self.soin(joueur, joueur.vie_maximal)
         elif réponse_hopital == "2":
-            print("D'accord, alors j'espère vous revoir bientôt !")
+            initialisation.afficher(["D'accord, alors j'espère vous revoir bientôt !"], joueur.vitesse_du_texte, "normal")
         else:
-            print("Désolé mais je n'ai pas compris votre demande...\nJe vous laisse retourner au village, j'espère vous revoir bientôt !")
+            initialisation.afficher(["Désolé mais je n'ai pas compris votre demande...", "Je vous laisse retourner au village, j'espère vous revoir bientôt !"], joueur.vitesse_du_texte, "normal")
         initialisation.saut_de_lignes()
     
     def soin(self, joueur, point_de_vie):
         joueur.vie = joueur.vie + point_de_vie
         if joueur.vie > joueur.vie_maximal:
             joueur.vie = joueur.vie_maximal
-        playsound(joueur.dossier_du_jeu + "\\soin.mp3")
+        if self.son == True:
+            try:
+                playsound(joueur.dossier_du_jeu + "\\son\\soin.mp3")
+            except:
+                print(f"{Fore.RED}Pour une raison inconnu le son n'a pas pu être joué !{Style.RESET_ALL}")
         print("Vous avez êtez soigné de " + str(point_de_vie) + " PV, vous êtes maintenant à " + str(joueur.vie) + " PV.")
     #endregion
         
@@ -101,9 +142,9 @@ class Village:
         elif réponse_banque == "2":
             self.__retirer_argent(joueur, int(input("Combien d'argent voulez-vous retirer ? ")))
         elif réponse_banque == "3":
-            print("D'accord, alors j'espère vous revoir bientôt !")
+            initialisation.afficher(["D'accord, alors j'espère vous revoir bientôt !"], joueur.vitesse_du_texte, "normal")
         else:
-            print("Désolé mais je n'ai pas compris votre demande...\nJe vous laisse retourner au village, j'espère vous revoir bientôt !")
+            initialisation.afficher(["Désolé mais je n'ai pas compris votre demande...", "Je vous laisse retourner au village, j'espère vous revoir bientôt !"], joueur.vitesse_du_texte, "normal")
         initialisation.saut_de_lignes()
         
     def __deposer_argent(self, joueur, argent_à_déposer):
@@ -111,7 +152,11 @@ class Village:
             argent_à_déposer = joueur.argent
         joueur.argent_banque = joueur.argent_banque + argent_à_déposer
         joueur.argent = joueur.argent - argent_à_déposer
-        playsound(joueur.dossier_du_jeu + "\\banque.mp3")
+        if self.son == True:
+            try:
+                playsound(joueur.dossier_du_jeu + "\\son\\banque.mp3")
+            except:
+                print(f"{Fore.RED}Pour une raison inconnu le son n'a pas pu être joué !{Style.RESET_ALL}")
         print("Vous avez déposé " + str(argent_à_déposer) + " bitcoin dans votre banque, vous êtes maintenant à " + str(joueur.argent) + " bitcoin avec en plus de cela " + str(joueur.argent_banque) + " bitcoin dans votre banque.")
         
     def __retirer_argent(self, joueur, argent_à_retirer):
@@ -119,17 +164,62 @@ class Village:
             argent_à_retirer = joueur.argent_banque
         joueur.argent = joueur.argent + argent_à_retirer
         joueur.argent_banque = joueur.argent_banque - argent_à_retirer
-        playsound(joueur.dossier_du_jeu + "\\banque.mp3")
+        if self.son == True:
+            try:
+                playsound(joueur.dossier_du_jeu + "\\son\\banque.mp3")
+            except:
+                print(f"{Fore.RED}Pour une raison inconnu le son n'a pas pu être joué !{Style.RESET_ALL}")
         print("Vous avez retiré " + str(argent_à_retirer) + " bitcoin dans votre banque, vous êtes maintenant à " + str(joueur.argent) + " bitcoin avec en plus de cela " + str(joueur.argent_banque) + " bitcoin dans votre banque.")
     #endregion
         
     #region Shop
     def __shop(self, joueur):
-        pass
+        if self.première_fois_shop == True:
+            print(f"{Fore.BLACK}Vendeur:{Style.RESET_ALL} ", end="")
+            initialisation.afficher(["Bienvenue au shop, je suis le vendeur du village, si vous voulez acheter quelque chose c'est ici qu'il faut venir !"], joueur.vitesse_du_texte, "normal")
+            self.première_fois_shop = False
+        else:
+            print(f"{Fore.BLACK}Vendeur:{Style.RESET_ALL} ", end="")
+            initialisation.afficher(["Bonjour !"], joueur.vitesse_du_texte, "normal")
+        self.__afficher_le_shop(joueur, items_du_shop)
+        initialisation.afficher(["Que voulez-vous faire ?"], joueur.vitesse_du_texte, "normal")
+        print("(Indiquer le numéro de l'item à acheter ou mettez 0 pour retourner au village)")
+        réponse_shop = int(input())
+        if réponse_shop == 0:
+            initialisation.afficher(["D'accord, alors j'espère vous revoir bientôt !"], joueur.vitesse_du_texte, "normal")
+        else:
+            if réponse_shop > len(items_du_shop):
+                initialisation.afficher(["Désolé mais je n'ai pas cet item...", "Je vous laisse retourner au village, j'espère vous revoir bientôt !"], joueur.vitesse_du_texte, "normal")
+            else: 
+                self.__acheter_au_shop(joueur, réponse_shop)
+        initialisation.saut_de_lignes()
         
-    def __afficher_le_shop(self, joueur, items_du_shop):
-        pass
+    def __afficher_le_shop(self, joueur, liste_des_items_du_shop):
+        initialisation.afficher(["Voici ce que vous pouvez acheter"], joueur.vitesse_du_texte, "normal")
+        numéro_item = 1
+        for items in liste_des_items_du_shop:
+            print(str(numéro_item) + " - " + items[0])
+            print("Prix: " + str(items[1]) + " bitcoins | Dégats: " + str(items[2]))
+            numéro_item = numéro_item + 1
         
-    def __acheter_au_shop(self, joueur):
-        pass
-    
+    def __acheter_au_shop(self, joueur, numéro_item_choisis):
+        for element in joueur.sac:
+            if element == items_du_shop[numéro_item_choisis - 1]:
+                print(f"{Fore.RED}Vous avez déjà acheter cette objet !{Style.RESET_ALL}")
+                pass
+        if joueur.argent <= items_du_shop[numéro_item_choisis - 1][1]:
+            print(f"{Fore.RED}Vous n'avez pas assez d'argent sur vous !{Style.RESET_ALL}")
+        else:
+            joueur.sac.append([items_du_shop[numéro_item_choisis - 1][0],items_du_shop[numéro_item_choisis - 1][2]])
+            joueur.argent = joueur.argent - items_du_shop[numéro_item_choisis - 1][1]
+            if self.son == True:
+                try:
+                    playsound(joueur.dossier_du_jeu + "\\son\\shop1.mp3")
+                except:
+                    print(f"{Fore.RED}Pour une raison inconnu le son n'a pas pu être joué !{Style.RESET_ALL}")
+            print("Vous venez d'acheter : " + items_du_shop[numéro_item_choisis - 1][0] + " !")
+            print("Voulez-vous le tenir en main ? 1 - Oui | 2 - Non") 
+            réponse_main = input()
+            if réponse_main == "1":
+                joueur.objet_en_main = len(joueur.sac) - 1
+                print("Vous tenez en main l'objet: " + joueur.sac[joueur.objet_en_main][0])

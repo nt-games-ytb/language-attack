@@ -9,7 +9,7 @@ class Initialisation:
         self.dossier = dossier
 
     def fichier_existe(self, fichier):
-        if os.path.isfile(self.dossier + "\\" + fichier) == True:
+        if os.path.exists(self.dossier + "\\" + fichier) == True:
             return True
         else:
             return False
@@ -26,8 +26,8 @@ class Initialisation:
         fichier.write("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<sauvegarde>\n</sauvegarde>")
         fichier.close()
 
-    def creation_de_joueur(self, joueur, village):
-        village.Texte_de_Mathieu()
+    def creation_de_joueur(self, joueur):
+        Texte_de_Mathieu()
         afficher(["Parle moi un peu de toi que je te crée un personnage pour que tu joues :"], 0.05, "normal")
         joueur.nom = input("Comment t'appelles-tu ? ")
         self.sauvegarder(joueur)
@@ -45,9 +45,9 @@ class Initialisation:
         if numéro_joueur == 1:
             print(f"{Fore.RED}Malheuresement, nous n'avons pas réussi à charger de joueurs.{Fore.RESET}")
 
-    def chargement_du_joueur(self, fichier, joueur, village, numéro_du_joueur):
+    def chargement_du_joueur(self, fichier, joueur, numéro_du_joueur):
         if numéro_du_joueur == 0:
-            self.creation_de_joueur(joueur, village)
+            self.creation_de_joueur(joueur)
             saut_de_lignes()
         else:
             fichier_xml_de_sauvegarde = xml.dom.minidom.parse(self.dossier + fichier)
@@ -141,19 +141,22 @@ def afficher(textes, temps, couleur): #Manque le son
 
 def saut_de_lignes():
     print()
+
+def Texte_de_Mathieu():
+    print(f"{Fore.RED}M.Mathieu: {Style.RESET_ALL}", end="")
 #endregion
 
 #region Tutoriel
-def scenario(village):
-    print("Voici le scènario...")
-    village.Texte_de_Mathieu()
-    afficher(["Je suppose que tu te demandes pourquoi je suis là ?",
+def scenario(joueur):
+    #print("Voici le scènario...")
+    Texte_de_Mathieu()
+    afficher(["Donc tu es " + joueur.nom + ".",
+    "Je suppose que tu te demandes pourquoi je suis là ?",
     "Et bien en fait, on m'a averti des problèmes et des difficultés avec la classe de Terminal NSI du lycée et comme M.Duranton et M.Maurice sont au bord du burn out, je suis venu à la rescousse.",
     "Tes professeurs m'ont donc averti de tout ce que vous avez fait toi et tes camarades de classe et c'est pas beau à voir...",
     "A force de faire n'importe quoi en cours, vous avez créé une faille dans 30 langages de programmation différents !",
     "Cette faille a créé pleins de bugs qu'il va falloir réparer.",
     "C'est pour cela que vous êtes ici, dans ce petit RPG créé par Nicolas TORO, pour combattre les différents bugs de chaque langage afin de les rendre ré-utilisable."], 0.05, "normal")
-        
 
 def demande_tutoriel():
     print("Veux-tu lancer le tutoriel ?\n1 - Oui | 2 - Non")
@@ -168,5 +171,5 @@ def demande_tutoriel():
         print("Je vais prendre cette réponse pour un non, donc on passe le tutoriel !")
 
 def tutoriel():
-    print("Voici le tutoriel...")
+    print("Désolé, le tutoriel arrivera dans une prochaine mise à jour !")
 #endregion
