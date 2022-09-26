@@ -1,7 +1,7 @@
 import os
 from colorama import Fore, Style
 
-print('\n'*100)  #Clear la console (si la ligne 5 ne marche pas)
+print('\n'*100)  #Clear la console (si la ligne d'après ne marche pas)
 os.system('cls') #Clear la console
 
 print(f"{Fore.GREEN}==================================================================================================================================================================================================")
@@ -18,7 +18,7 @@ print("|________/ \_______/   \___/   \___/   \_______/ \____  $$ \______/  \___
 print("                                                      | $$                                                                                       /$$  \ $$           /$$  \ $$                    ")
 print("                                                      | $$                                                                                      |  $$$$$$/          |  $$$$$$/                    ")
 print("                                                      |__/                                                                                       \______/            \______/                     ")
-print("Créer par : TORO Nicolas TG09")
+print("Créer par : TORO Nicolas TG09 | Version : 1.0")
 print(f"=================================================================================================================================================================================================={Style.RESET_ALL}")
 print("(Si le texte est mal affiché, alors veuillez agrandir la fenêtre ou la dézoomer)\n")
 

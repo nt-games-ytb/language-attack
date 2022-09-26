@@ -106,7 +106,7 @@ class Initialisation:
             fichier_xml.write(fichier_xml_de_sauvegarde.toprettyxml()) #Meilleur rendu
 
 #region Affichage
-def afficher(textes, temps, couleur): #Manque le son
+def afficher(textes, temps, couleur):
     assert type(textes) == list
     for phrase in range(len(textes)):
         for caractère in range(len(textes[phrase])):

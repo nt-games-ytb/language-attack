@@ -12,20 +12,20 @@ import initialisation
 
 items_du_shop = [
 ["def", 2000, 2],
-["return", 2000, 2],
-["pass", 2000, 2],
-["class", 3000, 3],
-["import", 4000, 4],
-["from", 5000, 5],
-["if", 6000, 6],
-["elif", 7000, 7],
-["else", 8000, 8],
-["for", 9000, 9],
-["while", 10000, 10],
-["try", 11000, 11],
-["exept", 12000, 12],
-["finally", 2000, 2],
-["catch", 2000, 2]]
+["return", 3000, 3],
+["pass", 4000, 4],
+["class", 5000, 5],
+["import", 6000, 6],
+["from", 7000, 7],
+["if", 8000, 8],
+["elif", 9000, 9],
+["else", 10000, 10],
+["for", 11000, 11],
+["while", 12000, 12],
+["try", 13000, 13],
+["exept", 14000, 14],
+["finally", 15000, 15],
+["catch", 16000, 16]]
 
 class Village:
     def __init__(self, première_fois_village, première_fois_hopital, première_fois_banque, première_fois_shop, son):
@@ -223,3 +223,4 @@ class Village:
             if réponse_main == "1":
                 joueur.objet_en_main = len(joueur.sac) - 1
                 print("Vous tenez en main l'objet: " + joueur.sac[joueur.objet_en_main][0])
+    #endregion

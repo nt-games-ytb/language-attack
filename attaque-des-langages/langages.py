@@ -35,7 +35,36 @@ liste_des_langages = [
 "FORTRAN"]
 
 description_de_langage = [
-"Test"
+"Le Q# est sortie en 2017.",
+"Le Swift est sortie en 2014.",
+"Le Julia est sortie en 2012.",
+"Le Kotlin est sortie en 2011.",
+"Le Rust est sortie en 2010.",
+"Le Go est sortie en 2009.",
+"Le F# est sortie en 2002.",
+"Le C# est sortie en 2000.",
+"Le Objective Caml est sortie en 1996.",
+"Le JavaScript est sortie en 1995.",
+"Le PHP est sortie en 1995.",
+"Le Java est sortie en 1995.",
+"Le Delphi est sortie en 1995.",
+"Le Lua est sortie en 1993.",
+"Le Ruby est sortie en 1993.",
+"Le Brainfuck est sortie en 1993",
+"Le SQL-2 est sortie en 1992.",
+"Le Virtual Basic est sortie en 1991.",
+"Le Python est sortie en 1991.",
+"Le Perl est sortie en 1987.",
+"Le Caml est sortie en 1985.",
+"Le MATLAB est sortie en 1984.",
+"Le Objective-C est sortie en 1983.",
+"Le C++ est sortie en 1983.",
+"Le SQL est sortie en 1974.",
+"Le C est sortie en 1972.",
+"Le Pascal est sortie en 1971.",
+"Le Basic est sortie en 1964.",
+"Le Cobol est sortie en 1960.",
+"Le FORTAN est sortie en 1954.",
 ]
 
 class Langages:
